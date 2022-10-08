@@ -11,7 +11,8 @@ class UserAdminConfig(UserAdmin):
     list_display = ('email', 'phone', 'username', 'is_active',
                     'is_staff', 'id')
     fieldsets = (
-        (None, {'fields': ('phone', 'username',)}),
+        (None, {'fields': ('phone', 'username',
+         'first_name', 'last_name', 'email', 'start_date')}),
         ('Permissions', {'fields': ('is_staff', 'is_superuser',
                                     'groups', 'user_permissions')}),
     )
@@ -19,7 +20,7 @@ class UserAdminConfig(UserAdmin):
     add_fieldsets = (
         (None, {
             'classes': ('wide',),
-            'fields': ('phone', 'username', 'password1', 'password2',  'is_staff')}
+            'fields': ('phone', 'username', 'password1', 'password2',  'is_staff', 'first_name', 'last_name', 'email')}
          ),
     )
 

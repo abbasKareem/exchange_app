@@ -28,13 +28,15 @@
       }
     </style>
   </head>
-  <body>
+  <body onload="javascript:sent_confirm()">
     <div class="main">
-      <div id="error"></div>
+      <h1>تم تفعيل حسابك بنجاح ، أرجع الى التطبيق وسجل الدخول</h1>
+
+      <!-- <div id="error"></div>
       <p id="uid" hidden>{{uid}}</p>
       <p id="token" hidden>{{token}}</p>
       <h2>قم بتفعيل حسابك بالضغط على الزر</h2>
-      <button class="buttonload" id="button">Activate</button>
+      <button class="buttonload" id="button">Activate</button> -->
     </div>
     <script>
       var uid = "{{ uid }}"
@@ -42,30 +44,47 @@
       // const uid = document.getElementById("uid").textContent
       // const token = document.getElementById("token").textContent
 
-      let button = document.getElementById("button")
-      let error = document.getElementById("error")
-      const data = {
-        uid,
-        token,
-      }
-      button.addEventListener("click", function () {
-        document.getElementById("button").disabled = true
+      function sent_confirm() {
+        var uid = "{{ uid }}"
+        var token = "{{ token }}"
+        const data = {
+          uid,
+          token,
+        }
         fetch("https://exchangemoneyapp.herokuapp.com/auth/users/activation/", {
+          // fetch("http://localhost:8000/auth/users/activation/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         }).then((res) => {
-          if (res.status === 204) {
-            window.location.replace(
-              "https://exchangemoneyapp.herokuapp.com/activate/success"
-            )
-          } else {
-            document.getElementById("button").disabled = false
-            document.getElementById("error").innerHTML =
-              "<h1>عذراً حصل خطأ اثناء عملية تفعيلك لحسابك، اذا كان حسابك مفعل يمكن ان يظهر هذا الخطأ في هذه الحالة ارجع الى التطبيق وسجل دخول، او ربما انت غير متصل بالانترنت</h1>"
-          }
+          alert("success!")
         })
-      })
+      }
+
+      // let button = document.getElementById("button")
+      // let error = document.getElementById("error")
+      // const data = {
+      //   uid,
+      //   token,
+      // }
+      // button.addEventListener("click", function () {
+      //   document.getElementById("button").disabled = true
+      //   fetch("https://exchangemoneyapp.herokuapp.com/auth/users/activation/", {
+      //     method: "POST",
+      //     headers: { "Content-Type": "application/json" },
+      //     body: JSON.stringify(data),
+      //   }).then((res) => {
+      //     if (res.status === 204) {
+      //       window.location.replace(
+      //         "https://exchangemoneyapp.herokuapp.com/activate/success"
+      //       )
+      //     } else {
+      //       document.getElementById("button").disabled = false
+      //       document.getElementById("error").innerHTML =
+      //         "<h1>عذراً حصل خطأ اثناء عملية تفعيلك لحسابك، اذا كان حسابك مفعل يمكن ان يظهر هذا الخطأ في هذه الحالة ارجع الى التطبيق وسجل دخول، او ربما انت غير متصل بالانترنت</h1>"
+      //     }
+      //   })
+      // })
     </script>
   </body>
 </html>
