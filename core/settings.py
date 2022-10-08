@@ -193,6 +193,8 @@ JAZZMIN_SETTINGS["show_ui_builder"] = True
 
 # =========================================
 
+ALLOWED_HOSTS = ['*']
+
 
 INSTALLED_APPS = [
     # 'jet.dashboard',
