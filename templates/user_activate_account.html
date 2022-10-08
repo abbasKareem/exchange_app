@@ -50,13 +50,15 @@
       }
       button.addEventListener("click", function () {
         document.getElementById("button").disabled = true
-        fetch("http://localhost:8000/auth/users/activation/", {
+        fetch("https://exchangemoneyapp.herokuapp.com/auth/users/activation/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify(data),
         }).then((res) => {
           if (res.status === 204) {
-            window.location.replace("http://localhost:8000/activate/success")
+            window.location.replace(
+              "https://exchangemoneyapp.herokuapp.com/activate/success"
+            )
           } else {
             document.getElementById("button").disabled = false
             document.getElementById("error").innerHTML =
