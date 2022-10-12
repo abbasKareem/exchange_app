@@ -9,6 +9,8 @@ from django.conf import settings
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 
+from .utils import send_notifiy
+
 
 class CustomAccountManager(BaseUserManager):
 
@@ -162,6 +164,12 @@ class OneSignal(models.Model):
 def sent_notification_when_status_success(sender, instance, created, **kwargs):
     if created == False:
         if instance.status == 'Success':
+            message = "Your Payment done👍, please go back to the app to see the payment"
+
+            onesignal_ob = OneSignal.objects.get(user=instance.user)
+            res = send_notifiy(onesignal_ob.user_notify_id, message)
+            print(res)
+
             print("==========================================")
             message = f"Your exchange from {instance.transcation.tran_from} to {instance.transcation.tran_to} Accepted"
             print("==========================================")
@@ -169,6 +177,11 @@ def sent_notification_when_status_success(sender, instance, created, **kwargs):
                 user=instance.user, title="Accepted Payment!", body=message)
             no_obj.save()
         if instance.status == 'Fail':
+            message = "Your Payment (Failed)🙁, please go back to the app to see the payment"
+
+            onesignal_ob = OneSignal.objects.get(user=instance.user)
+            res = send_notifiy(onesignal_ob.user_notify_id, message)
+            print(res)
             print("==========================================")
             message = f"Your exchange from {instance.transcation.tran_from} to {instance.transcation.tran_to} Failed"
             print("==========================================")

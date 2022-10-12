@@ -26,6 +26,7 @@ class CreatePaymentView(generics.CreateAPIView):
         dt_string = now.strftime("%d%m%Y%H%M%S")
 
         tran_from = request.data['from']
+        user_player_id = request.data['user_player_id']
         tran_to = request.data['to']
         recvied_amount = request.data['recvied_amount']
 
@@ -38,8 +39,8 @@ class CreatePaymentView(generics.CreateAPIView):
         except Type.DoesNotExist:
             return my_response(False, 'transaction type to not found', {}, status.HTTP_404_NOT_FOUND)
 
-        user_first_name = request.user.first_name
-        user = CustomUser.objects.get(first_name=user_first_name)
+        # user_first_name = request.user.first_name
+        # user = CustomUser.objects.get(first_name=user_first_name)
 
         transcation_obj = Transcation.objects.get(
             tran_from=type_from_obj.pk, tran_to=type_to_obj.pk)
@@ -53,11 +54,20 @@ class CreatePaymentView(generics.CreateAPIView):
         result_final = result.hexdigest()
 
         payment_obj = Payment.objects.create(
-            user=user, transcation=transcation_obj, total=total, recvied_amount=recvied_amount, hawala_number=hawala_number, status='Pending', mac_in=result_final)
+            user=request.user, transcation=transcation_obj, total=total, recvied_amount=recvied_amount, hawala_number=hawala_number, status='Pending', mac_in=result_final)
         payment_obj.save()
 
         notify = Notification.objects.create(
-            user=request.user, title="انشاء دفع", body="تم عملية الدفع بنجاح، يرجى الانتظار لحين موافق الادمن على عملية الدفع")
+            user=request.user, title="انشاء دفع", body="تم عملية التحويل بنجاح، يرجى الانتظار لحين موافق الادمن على عملية التحويل")
+
+        try:
+            signal_obj = OneSignal.objects.get(user=request.user)
+        except OneSignal.DoesNotExist:
+            one_signal_obj = OneSignal.objects.create(
+                user=request.user, user_notify_id=user_player_id)
+            one_signal_obj.save()
+        OneSignal.objects.filter(user=request.user).update(
+            user_notify_id=user_player_id)
 
         data = {
             "payment_id": payment_obj.pk,
