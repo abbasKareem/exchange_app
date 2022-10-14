@@ -165,26 +165,31 @@ def sent_notification_when_status_success(sender, instance, created, **kwargs):
     if created == False:
         if instance.status == 'Success':
             message = "Your Payment done👍, please go back to the app to see the payment"
+            try:
 
-            onesignal_ob = OneSignal.objects.get(user=instance.user)
-            res = send_notifiy(onesignal_ob.user_notify_id, message)
-            print(res)
+                onesignal_ob = OneSignal.objects.get(user=instance.user)
+                res = send_notifiy(onesignal_ob.user_notify_id, message)
+                print(res)
 
-            print("==========================================")
-            message = f"Your exchange from {instance.transcation.tran_from} to {instance.transcation.tran_to} Accepted"
-            print("==========================================")
-            no_obj = Notification.objects.create(
-                user=instance.user, title="Accepted Payment!", body=message)
-            no_obj.save()
+                print("==========================================")
+                message = f"Your exchange from {instance.transcation.tran_from} to {instance.transcation.tran_to} Accepted"
+                print("==========================================")
+                no_obj = Notification.objects.create(
+                    user=instance.user, title="Accepted Payment!", body=message)
+                no_obj.save()
+            except OneSignal.DoesNotExist:
+                print("not found")
         if instance.status == 'Fail':
             message = "Your Payment (Failed)🙁, please go back to the app to see the payment"
-
-            onesignal_ob = OneSignal.objects.get(user=instance.user)
-            res = send_notifiy(onesignal_ob.user_notify_id, message)
-            print(res)
-            print("==========================================")
-            message = f"Your exchange from {instance.transcation.tran_from} to {instance.transcation.tran_to} Failed"
-            print("==========================================")
-            no_obj = Notification.objects.create(
-                user=instance.user, title="Failed Payment!", body=message)
-            no_obj.save()
+            try:
+                onesignal_ob = OneSignal.objects.get(user=instance.user)
+                res = send_notifiy(onesignal_ob.user_notify_id, message)
+                print(res)
+                print("==========================================")
+                message = f"Your exchange from {instance.transcation.tran_from} to {instance.transcation.tran_to} Failed"
+                print("==========================================")
+                no_obj = Notification.objects.create(
+                    user=instance.user, title="Failed Payment!", body=message)
+                no_obj.save()
+            except OneSignal.DoesNotExist:
+                print("not found")

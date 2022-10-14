@@ -1,6 +1,8 @@
 from django.contrib import admin
 from .models import CustomUser, Type, Transcation, Payment, Notification, OneSignal
 from django.contrib.auth.admin import UserAdmin
+from datetime import datetime, timezone
+from django.utils import timesince
 
 
 class UserAdminConfig(UserAdmin):
@@ -38,14 +40,19 @@ class TranscationAdmin(admin.ModelAdmin):
 
 
 class PaymentAdmin(admin.ModelAdmin):
-    readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number', 'mac_out',
-                       'mac_in', 'mac_out', 'recvied_amount']
-    list_display = ['status', 'create_at', 'phone', 'recvied_amount', 'total']
+    # readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number', 'mac_out',
+    #                    'mac_in', 'mac_out', 'recvied_amount']
+    list_display = ['status', 'create_at', 'phone',
+                    'recvied_amount', 'total', 'transcation', 'since']
 
-    list_filter = ['status', 'create_at']
+    list_filter = ['status', 'create_at', 'transcation']
 
     def phone(self, obj):
         return obj.user.phone
+
+    def since(self, obj):
+        date_time_dif = datetime.now(timezone.utc) - obj.create_at
+        return str(date_time_dif)[:-6] + ' ago'
 
 
 admin.site.register(CustomUser, UserAdminConfig)
@@ -53,5 +60,5 @@ admin.site.register(Type, TypeAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Transcation, TranscationAdmin)
 
-# admin.site.register(Notification)
-# admin.site.register(OneSignal)
+admin.site.register(Notification)
+admin.site.register(OneSignal)
