@@ -1,0 +1,18 @@
+{% extends 'admin/base.html' %} {% load static %}
+<!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" /> -->
+
+{% block branding %}
+<h1 id="head">
+  <img
+    src="{% static 'img/hassa Exchange2.png' %}"
+    alt="logo"
+    class="brand_img"
+    height="60"
+    width="60"
+    style="border-radius: 100%"
+  />
+  Exchange Admin Area
+</h1>
+{% endblock %} {% block extrastyle %}
+<link rel="stylesheet" href="{% static 'css/admin.css' %}" />
+{% endblock %}

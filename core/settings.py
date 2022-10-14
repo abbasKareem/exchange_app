@@ -197,9 +197,11 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
+    'admin_tools_stats',  # this must be BEFORE 'admin_tools' and 'django.contrib.admin'
+    'django_nvd3',
     # 'jet.dashboard',
     # 'jet',
-    'jazzmin',
+    # 'jazzmin',
     'whitenoise',
     "django.contrib.admin",
     "django.contrib.auth",
@@ -249,28 +251,28 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ahmedexchangedb',
-#         'USER': 'abbas',
-#         'PASSWORD': 'ykOkFNgvk0602wmVxU0SXOzgC0hbsLoy',
-#         'HOST': 'dpg-cd0qnvmn6mpt727d4lb0-a.frankfurt-postgres.render.com',
-#         'PORT': '5432',
-#     }
-# }
-
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ahmedExchange',
-        'USER': 'postgres',
-        'PASSWORD': 'abbas',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': 'ahmedexchangedb',
+        'USER': 'abbas',
+        'PASSWORD': 'ykOkFNgvk0602wmVxU0SXOzgC0hbsLoy',
+        'HOST': 'dpg-cd0qnvmn6mpt727d4lb0-a.frankfurt-postgres.render.com',
+        'PORT': '5432',
     }
 }
+
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql_psycopg2',
+#         'NAME': 'ahmedExchange',
+#         'USER': 'postgres',
+#         'PASSWORD': 'abbas',
+#         'HOST': 'localhost',
+#         'PORT': '',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -303,9 +305,9 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATIC_ROOT = os.path.join(BASE_DIR / 'static')
 
-# STATICFILES_DIRS = [
-#     os.path.join(BASE_DIR, 'core/static')
-# ]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'core/static')
+]
 
 
 # Default primary key field type
