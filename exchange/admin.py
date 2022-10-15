@@ -80,5 +80,5 @@ admin.site.register(Type, TypeAdmin)
 admin.site.register(Payment, PaymentAdmin)
 admin.site.register(Transcation, TranscationAdmin)
 
-admin.site.register(Notification)
-admin.site.register(OneSignal)
+# admin.site.register(Notification)
+# admin.site.register(OneSignal)
