@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import CustomUser, Type, Transcation, Payment, Notification, OneSignal
+from .models import *
 from django.contrib.auth.admin import UserAdmin
 from datetime import datetime, timezone
 from django.utils import timesince
@@ -58,13 +58,16 @@ class TranscationAdmin(admin.ModelAdmin):
 
 
 class PaymentAdmin(admin.ModelAdmin):
-    readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
-                       'mac_in', 'mac_out', 'recvied_amount']
+    # readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
+    #                    'mac_in', 'mac_out', 'recvied_amount']
     list_display = ['status', 'user', 'create_at', 'phone',
                     'recvied_amount', 'total', 'transcation', 'since']
 
     list_filter = ['status', 'create_at', 'transcation']
     list_per_page = 25
+    # save_as = True
+    # save_on_top = True
+    change_list_template = 'change_list_payment.html'
     actions = [export_as_csv]
 
     def phone(self, obj):
@@ -73,6 +76,7 @@ class PaymentAdmin(admin.ModelAdmin):
     def since(self, obj):
         date_time_dif = datetime.now(timezone.utc) - obj.create_at
         return str(date_time_dif)[:-6] + ' ago'
+
 
 
 admin.site.register(CustomUser, UserAdminConfig)

@@ -193,3 +193,4 @@ def sent_notification_when_status_success(sender, instance, created, **kwargs):
                 no_obj.save()
             except OneSignal.DoesNotExist:
                 print("not found")
+

@@ -1,0 +1,90 @@
+{% extends "admin/change_list.html" %}
+<!-- {% load static %} -->
+  {% block extrahead %}
+<link
+  rel="stylesheet"
+  type="text/css"
+  href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+
+<script>
+  var randomColorGenerator = function () {
+      return '#' + (Math.random().toString(16) + '0000000').slice(2, 8);
+  };
+  var options = {
+      responsive: true,
+      maintainAspectRatio: true,
+      legend: {
+          position: 'left'
+      },
+      title: {
+          display: true
+      },
+      animation: {
+          animateScale: true,
+          animateRotate: true
+      }
+  };
+  window.onload = function () {
+      var ctx = document.getElementById("status-chart");
+      {% regroup cl.queryset|dictsort:"status" by get_status_display as status_list %}
+      
+      var lineChart = new Chart(ctx, {
+          type: 'doughnut',
+          data: {
+              labels: [{% for status in status_list %}'{{ status.grouper }}',{% endfor %}],
+              datasets: [{
+                  data: [{% for status in status_list %}'{{ status.list|length }}',{% endfor %}],
+                  backgroundColor: [{% for status in status_list %}randomColorGenerator(),{% endfor %}]
+              }]
+          },
+          options: options
+      });
+      ctx = document.getElementById("createAt-chart");
+      {% regroup cl.queryset|dictsort:"create_at" by create_at as create_at_list %}
+      lineChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: [{% for create_at in create_at_list %}'{{ create_at.grouper }}',{% endfor %}],
+              datasets: [{
+                  data: [{% for create_at in create_at_list %}'{{ create_at.list|length }}',{% endfor %}],
+                  backgroundColor: [{% for create_at in create_at_list %}randomColorGenerator(),{% endfor %}]
+              }]
+          },   
+          options: options
+
+      });
+      ctx = document.getElementById("transcation-chart");
+      {% regroup cl.queryset|dictsort:"transcation" by get_transcation_display as transcation_list %}
+
+      console.log('{{  transcation_list }}')
+      lineChart = new Chart(ctx, {
+          type: 'pie',
+          data: {
+              labels: [{% for transcation in transcation_list %}'{{ transcation.grouper }}',{% endfor %}],
+              datasets: [{
+                  data: [{% for transcation in transcation_list %}'{{ transcation.list|length }}',{% endfor %}],
+                  backgroundColor: [{% for transcation in transcation_list %}randomColorGenerator(),{% endfor %}]
+              }]
+          }, options: options
+      });
+  }
+</script>
+{% endblock %} {% block content %}
+<hr />
+
+<div class="row justify-content-center">
+  <div class="col-sm-4">
+    <canvas id="status-chart" style="width: 100px !important"></canvas>
+  </div>
+  <!-- <div class="col-sm-4">
+    <canvas id="createAt-chart" style="width: 100px !important"></canvas>
+  </div>
+  <div class="col-sm-4">
+    <canvas id="transcation-chart" style="width: 100px !important"></canvas>
+  </div> -->
+</div>
+
+{{ block.super }} {% endblock %}
