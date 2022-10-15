@@ -3,6 +3,24 @@ from .models import CustomUser, Type, Transcation, Payment, Notification, OneSig
 from django.contrib.auth.admin import UserAdmin
 from datetime import datetime, timezone
 from django.utils import timesince
+from django.http import HttpResponse
+import csv
+
+
+def export_as_csv(self, request, queryset):
+    meta = self.model._meta
+    field_names = [field.name for field in meta.fields]
+    response = HttpResponse(content_type='text.csv')
+    response['Content-Disposition'] = 'attachment; filename={}.csv'.format(
+        meta)
+    writer = csv.writer(response)
+    writer.writerow(field_names)
+    for obj in queryset:
+        row = writer.writerow([getattr(obj, field) for field in field_names])
+    return response
+
+
+export_as_csv.short_description = "Download Payment"
 
 
 class UserAdminConfig(UserAdmin):
@@ -40,12 +58,14 @@ class TranscationAdmin(admin.ModelAdmin):
 
 
 class PaymentAdmin(admin.ModelAdmin):
-    # readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number', 'mac_out',
-    #                    'mac_in', 'mac_out', 'recvied_amount']
-    list_display = ['status', 'create_at', 'phone',
+    readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
+                       'mac_in', 'mac_out', 'recvied_amount']
+    list_display = ['status', 'user', 'create_at', 'phone',
                     'recvied_amount', 'total', 'transcation', 'since']
 
     list_filter = ['status', 'create_at', 'transcation']
+    list_per_page = 25
+    actions = [export_as_csv]
 
     def phone(self, obj):
         return obj.user.phone
