@@ -58,8 +58,8 @@ class TranscationAdmin(admin.ModelAdmin):
 
 
 class PaymentAdmin(admin.ModelAdmin):
-    # readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
-    #                    'mac_in', 'mac_out', 'recvied_amount']
+    readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
+                       'mac_in', 'mac_out', 'recvied_amount']
     list_display = ['status', 'user', 'create_at', 'phone',
                     'recvied_amount', 'total', 'transcation', 'since']
 
