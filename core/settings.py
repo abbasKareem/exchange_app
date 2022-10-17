@@ -24,10 +24,10 @@ JAZZMIN_SETTINGS = {
     "site_brand": "Exchange Admin",
 
     # Logo to use for your site, must be present in static files, used for brand on top left
-    # "site_logo": "../static/jazzmin/img/rido.jpg",
+    # "site_logo": "img/hassa Exchange2.png",
 
     # Logo to use for your site, must be present in static files, used for login form logo (defaults to site_logo)
-    # "login_logo": '../static/vendor/adminlte/img/user2-160x160.jpg',
+    # "login_logo": 'img/hassa_Exchange2_32x32.png',
 
     # Logo to use for login form in dark themes (defaults to login_logo)
     # "login_logo_dark": None,
@@ -161,10 +161,10 @@ JAZZMIN_UI_TWEAKS = {
     "accent": "accent-orange",
     "navbar": "navbar-white navbar-light",
     "no_navbar_border": False,
-    "navbar_fixed": False,
+    "navbar_fixed": True,
     "layout_boxed": False,
     "footer_fixed": False,
-    "sidebar_fixed": False,
+    "sidebar_fixed": True,
     "sidebar": "sidebar-dark-orange",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
@@ -248,28 +248,28 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'ahmedexchangedb',
-        'USER': 'abbas',
-        'PASSWORD': 'ykOkFNgvk0602wmVxU0SXOzgC0hbsLoy',
-        'HOST': 'dpg-cd0qnvmn6mpt727d4lb0-a.frankfurt-postgres.render.com',
-        'PORT': '5432',
-    }
-}
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-#         'NAME': 'ahmedExchange',
-#         'USER': 'postgres',
-#         'PASSWORD': 'abbas',
-#         'HOST': 'localhost',
-#         'PORT': '',
+#         'NAME': 'ahmedexchangedb',
+#         'USER': 'abbas',
+#         'PASSWORD': 'ykOkFNgvk0602wmVxU0SXOzgC0hbsLoy',
+#         'HOST': 'dpg-cd0qnvmn6mpt727d4lb0-a.frankfurt-postgres.render.com',
+#         'PORT': '5432',
 #     }
 # }
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'ahmedExchange',
+        'USER': 'postgres',
+        'PASSWORD': 'abbas',
+        'HOST': 'localhost',
+        'PORT': '',
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -289,7 +289,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "UTC"
+TIME_ZONE = 'Asia/Baghdad'
 
 USE_I18N = True
 

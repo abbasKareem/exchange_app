@@ -29,6 +29,7 @@ class UserAdminConfig(UserAdmin):
     search_fields = ('phone',)
     list_filter = ('is_staff', 'start_date')
     ordering = ('-start_date',)
+    list_per_page = 25
     list_display = ('email', 'phone', 'is_active',
                     'is_staff', 'id')
     fieldsets = (
@@ -58,14 +59,12 @@ class TranscationAdmin(admin.ModelAdmin):
         return "View"
 
 
-
 class PaymentAdmin(admin.ModelAdmin):
     readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
                        'mac_in', 'mac_out', 'recvied_amount']
     list_display = ['status', 'user', 'create_at', 'phone',
                     'recvied_amount', 'total', 'transcation', 'since']
 
- 
     list_filter = ['status', 'create_at', 'transcation']
     list_per_page = 25
     # save_as = True
@@ -73,15 +72,12 @@ class PaymentAdmin(admin.ModelAdmin):
     change_list_template = 'change_list_payment.html'
     actions = [export_as_csv]
 
-      
-
     def phone(self, obj):
         return obj.user.phone
 
     def since(self, obj):
         date_time_dif = datetime.now(timezone.utc) - obj.create_at
         return str(date_time_dif)[:-6] + ' ago'
-
 
 
 admin.site.register(CustomUser, UserAdminConfig)

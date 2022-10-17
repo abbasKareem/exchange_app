@@ -1,6 +1,6 @@
 {% extends "admin/change_list.html" %}
 <!-- {% load static %} -->
-  {% block extrahead %}
+{% block extrahead %}
 <link
   rel="stylesheet"
   type="text/css"
@@ -30,7 +30,7 @@
   window.onload = function () {
       var ctx = document.getElementById("status-chart");
       {% regroup cl.queryset|dictsort:"status" by get_status_display as status_list %}
-      
+
       var lineChart = new Chart(ctx, {
           type: 'doughnut',
           data: {
@@ -42,40 +42,13 @@
           },
           options: options
       });
-      ctx = document.getElementById("createAt-chart");
-      {% regroup cl.queryset|dictsort:"create_at" by create_at as create_at_list %}
-      lineChart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-              labels: [{% for create_at in create_at_list %}'{{ create_at.grouper }}',{% endfor %}],
-              datasets: [{
-                  data: [{% for create_at in create_at_list %}'{{ create_at.list|length }}',{% endfor %}],
-                  backgroundColor: [{% for create_at in create_at_list %}randomColorGenerator(),{% endfor %}]
-              }]
-          },   
-          options: options
 
-      });
-      ctx = document.getElementById("transcation-chart");
-      {% regroup cl.queryset|dictsort:"transcation" by get_transcation_display as transcation_list %}
-
-      console.log('{{  transcation_list }}')
-      lineChart = new Chart(ctx, {
-          type: 'pie',
-          data: {
-              labels: [{% for transcation in transcation_list %}'{{ transcation.grouper }}',{% endfor %}],
-              datasets: [{
-                  data: [{% for transcation in transcation_list %}'{{ transcation.list|length }}',{% endfor %}],
-                  backgroundColor: [{% for transcation in transcation_list %}randomColorGenerator(),{% endfor %}]
-              }]
-          }, options: options
-      });
   }
 </script>
 {% endblock %} {% block content %}
 <hr />
- <div class="card" >
-    <!-- <h1>
+<div class="card">
+  <!-- <h1>
 
         {{cl.result_list}}
         
@@ -85,7 +58,7 @@
         {% endfor %}
         
     </h1> -->
- </div>
+</div>
 
 <div class="row justify-content-center">
   <div class="col-sm-4">

@@ -124,7 +124,7 @@ class AllTypeView(generics.ListAPIView):
     permission_classes = [permissions.AllowAny]
 
     def list(self, request):
-        qs = Type.objects.all().order_by('-id')
+        qs = Type.objects.filter(is_public=True).order_by('-id')
         serializer = TypeSerializer(qs, many=True)
         return my_response(True, 'Typs fetched successfully', serializer.data, status.HTTP_200_OK)
 
