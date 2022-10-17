@@ -17,6 +17,7 @@ urlpatterns = [
     path('api/my_notify', ListAllNotificationsView.as_view()),
     path('api/all_transcations', AllTranscationsView().as_view()),
     path('api/all_typs', AllTypeView().as_view()),
+    path('api/profile', UserProfileView().as_view()),
 
 
 ]

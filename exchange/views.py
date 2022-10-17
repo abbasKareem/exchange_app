@@ -130,6 +130,24 @@ class AllTypeView(generics.ListAPIView):
 
 
 # ====================================================
+class UserProfileView(generics.ListAPIView):
+    permission_classes = [permissions.IsAuthenticated]
+
+    def list(self, request):
+        # user_info = request.user
+
+        payments = Payment.objects.count()
+        number_of_payments = 0
+        if payments:
+            number_of_payments = payments
+
+        print(number_of_payments)
+        serializer = profileSerializer(request.user)
+        data = {
+            "user_info": serializer.data,
+            "number_of_payments": number_of_payments
+        }
+        return my_response(True, 'Profile fetched successfully', data, 200)
 
 
 def user_activate_account(request, uid, token):

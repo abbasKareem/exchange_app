@@ -52,3 +52,10 @@ class TranscationSerializer(serializers.ModelSerializer):
         model = Transcation
 
         fields = ['tran_from', 'tran_to', 'amount']
+
+
+class profileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ('id', 'email', 'phone',  'first_name',
+                  'last_name', 'start_date')
