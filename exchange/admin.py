@@ -5,6 +5,7 @@ from datetime import datetime, timezone
 from django.utils import timesince
 from django.http import HttpResponse
 import csv
+from django.contrib.admin.views.main import ChangeList
 
 
 def export_as_csv(self, request, queryset):
@@ -57,18 +58,22 @@ class TranscationAdmin(admin.ModelAdmin):
         return "View"
 
 
+
 class PaymentAdmin(admin.ModelAdmin):
     readonly_fields = ['total', 'transcation',  'user', 'create_at', 'hawala_number',
                        'mac_in', 'mac_out', 'recvied_amount']
     list_display = ['status', 'user', 'create_at', 'phone',
                     'recvied_amount', 'total', 'transcation', 'since']
 
+ 
     list_filter = ['status', 'create_at', 'transcation']
-    list_per_page = 25
+    list_per_page = 3
     # save_as = True
     # save_on_top = True
     change_list_template = 'change_list_payment.html'
     actions = [export_as_csv]
+
+      
 
     def phone(self, obj):
         return obj.user.phone

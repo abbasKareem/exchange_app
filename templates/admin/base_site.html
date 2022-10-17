@@ -1,5 +1,11 @@
-{% extends 'admin/base.html' %} {% load static %}
+{% extends 'admin/base.html' %}
+{% load i18n %}
+ {% load static %}
 <!-- <link rel="shortcut icon" type="image/png" href="{% static 'favicon.ico' %}" /> -->
+
+{% get_current_language_bidi as LANGUAGE_BIDI %}  
+<html dir="rtl">  
+
 
 {% block branding %}
 <h1 id="head">
@@ -13,6 +19,8 @@
   />
   Exchange Admin Area
 </h1>
-{% endblock %} {% block extrastyle %}
+{% endblock %}
+ {% block extrastyle %}
 <link rel="stylesheet" href="{% static 'css/admin.css' %}" />
 {% endblock %}
+</html>

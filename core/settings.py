@@ -42,7 +42,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "مرحباً بكم في Exchange",
 
     # Copyright on the footer
-    "copyright": "kareemabbas106@gmail.com",
+    # "copyright": "kareemabbas106@gmail.com",
 
     # The model admin to search from the search bar, search bar omitted if excluded
     # "search_model": "auth.User",
@@ -109,18 +109,17 @@ JAZZMIN_SETTINGS = {
     #     }]
     # },
 
-    # Custom icons for side menu apps/models See https://fontawesome.com/icons?d=gallery&m=free&v=5.0.0,5.0.1,5.0.10,5.0.11,5.0.12,5.0.13,5.0.2,5.0.3,5.0.4,5.0.5,5.0.6,5.0.7,5.0.8,5.0.9,5.1.0,5.1.1,5.2.0,5.3.0,5.3.1,5.4.0,5.4.1,5.4.2,5.13.0,5.12.0,5.11.2,5.11.1,5.10.0,5.9.0,5.8.2,5.8.1,5.7.2,5.7.1,5.7.0,5.6.3,5.5.0,5.4.2
-    # for the full list of 5.13.0 free icon classes
-    # "icons": {
-    #     # <i class="fa-sharp fa-solid fa-folder-gear"></i>
-    #     "auth": "fas fa-users-cog",
-    #     "auth.user": "fas fa-user",
-    #     "auth.Group": "fas fa-users",
-    # },
-    # Icons that are used when one is not manually specified
-    # <i class="fa-sharp fa-solid fa-folder-gear"></i>
-    # "default_icon_parents": "fas fa-chevron-circle-right",
-    # "default_icon_children": "fas fa-circle",
+    "icons": {
+
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "exchange.payment": "fas fa-mobile",
+        "exchange.transcation": "fas fa-bolt",
+        "exchange.type": "fas fa-strikethrough",
+        "exchange.customuser": "fas fa-user",
+    },
+
 
     #################
     # Related Modal #
@@ -155,19 +154,18 @@ JAZZMIN_SETTINGS = {
 
 JAZZMIN_UI_TWEAKS = {
     "navbar_small_text": False,
-    "footer_small_text": True,
+    "footer_small_text": False,
     "body_small_text": False,
     "brand_small_text": False,
     "brand_colour": False,
-    "accent": "accent-danger",
+    "accent": "accent-orange",
     "navbar": "navbar-white navbar-light",
     "no_navbar_border": False,
     "navbar_fixed": False,
     "layout_boxed": False,
     "footer_fixed": False,
-    "navbar_fixed": True,
-    "sidebar_fixed": True,
-    "sidebar": "sidebar-light-orange",
+    "sidebar_fixed": False,
+    "sidebar": "sidebar-dark-orange",
     "sidebar_nav_small_text": False,
     "sidebar_disable_expand": False,
     "sidebar_nav_child_indent": False,
@@ -177,18 +175,17 @@ JAZZMIN_UI_TWEAKS = {
     "theme": "default",
     "dark_mode_theme": None,
     "button_classes": {
-        "primary": "btn-primary",
-        "secondary": "btn-secondary",
-        "info": "btn-info",
-        "warning": "btn-warning",
-        "danger": "btn-danger",
-        "success": "btn-success"
-    },
-    "actions_sticky_top": False
+        "primary": "btn-outline-primary",
+        "secondary": "btn-outline-secondary",
+        "info": "btn-outline-info",
+        "warning": "btn-outline-warning",
+        "danger": "btn-outline-danger",
+        "success": "btn-outline-success"
+    }
 }
-
-JAZZMIN_UI_TWEAKS["dark_mode_theme"]
-
+# JAZZMIN_UI_TWEAKS = {
+#     # "theme": "darkly",
+# }
 # JAZZMIN_SETTINGS["show_ui_builder"] = True
 
 # =========================================
@@ -197,11 +194,11 @@ ALLOWED_HOSTS = ['*']
 
 
 INSTALLED_APPS = [
-    'admin_tools_stats',  # this must be BEFORE 'admin_tools' and 'django.contrib.admin'
-    'django_nvd3',
+    # 'admin_tools_stats',  # this must be BEFORE 'admin_tools' and 'django.contrib.admin'
+    # 'django_nvd3',
     # 'jet.dashboard',
     # 'jet',
-    # 'jazzmin',
+    'jazzmin',
     'whitenoise',
     "django.contrib.admin",
     "django.contrib.auth",
@@ -290,7 +287,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "en-us"
+LANGUAGE_CODE = "ar-sa"
 
 TIME_ZONE = "UTC"
 
@@ -298,7 +295,18 @@ USE_I18N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = (
+   os.path.join(BASE_DIR, 'locale'),
+)
 
+
+LANGUAGES = [
+    ('ar', ('Arabic')),
+    ('en', ('English')),
+    ('fr', ('French')),
+]
+
+# LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.1/howto/static-files/
 
@@ -334,7 +342,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'exchange.iraq2022@gmail.com'
-EMAIL_HOST_PASSWORD = 'hdmtbqhsdeovvtbe'
+EMAIL_HOST_PASSWORD = 'lvmypfehsujrdxrp'
 EMAIL_USE_TLS = True
 
 SIMPLE_JWT = {
