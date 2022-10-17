@@ -67,7 +67,7 @@ class PaymentAdmin(admin.ModelAdmin):
 
  
     list_filter = ['status', 'create_at', 'transcation']
-    list_per_page = 3
+    list_per_page = 25
     # save_as = True
     # save_on_top = True
     change_list_template = 'change_list_payment.html'
