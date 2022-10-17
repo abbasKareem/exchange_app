@@ -42,7 +42,7 @@ JAZZMIN_SETTINGS = {
     "welcome_sign": "مرحباً بكم في Exchange",
 
     # Copyright on the footer
-    # "copyright": "kareemabbas106@gmail.com",
+    "copyright": "  Exchange منصة هسة",
 
     # The model admin to search from the search bar, search bar omitted if excluded
     # "search_model": "auth.User",
@@ -85,10 +85,10 @@ JAZZMIN_SETTINGS = {
     #############
 
     # Whether to display the side menu
-    "show_sidebar": False,
+    "show_sidebar": True,
 
     # Whether to aut expand the menu
-    "navigation_expanded": False,
+    "navigation_expanded": True,
 
     # Hide these apps when generating side menu e.g (auth)
     # "hide_apps": [],
@@ -134,7 +134,7 @@ JAZZMIN_SETTINGS = {
     # "custom_css": None,
     # "custom_js": None,
     # Whether to show the UI customizer on the sidebar
-    # "show_ui_builder": False,
+    # "show_ui_builder": True,
 
     ###############
     # Change view #
@@ -175,12 +175,12 @@ JAZZMIN_UI_TWEAKS = {
     "theme": "default",
     "dark_mode_theme": None,
     "button_classes": {
-        "primary": "btn-outline-primary",
-        "secondary": "btn-outline-secondary",
-        "info": "btn-outline-info",
-        "warning": "btn-outline-warning",
-        "danger": "btn-outline-danger",
-        "success": "btn-outline-success"
+        "primary": "btn-primary",
+        "secondary": "btn-secondary",
+        "info": "btn-info",
+        "warning": "btn-warning",
+        "danger": "btn-danger",
+        "success": "btn-success"
     }
 }
 # JAZZMIN_UI_TWEAKS = {
@@ -287,7 +287,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
-LANGUAGE_CODE = "ar-sa"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "UTC"
 
